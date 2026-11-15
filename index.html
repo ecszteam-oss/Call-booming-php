@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚀 Rocket Admin • Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-1:#0a0a1a; --bg-2:#12002e; --bg-3:#001a2e;
+  --accent:#00e5ff; --accent-2:#a855f7; --accent-3:#22d3ee;
+  --success:#22c55e; --danger:#ef4444; --warning:#f59e0b;
+  --glass:rgba(255,255,255,.04); --border:rgba(255,255,255,.08);
+  --text:#e8eaf2; --text-dim:#8b8fa8;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',sans-serif;}
+html,body{height:100%;}
+body{
+  background:var(--bg-1);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
+/* Animated background */
+body::before,body::after{
+  content:'';position:fixed;border-radius:50%;filter:blur(120px);opacity:.35;z-index:0;pointer-events:none;
+}
+body::before{
+  width:600px;height:600px;background:var(--accent-2);
+  top:-200px;left:-200px;animation:float1 18s ease-in-out infinite;
+}
+body::after{
+  width:700px;height:700px;background:var(--accent);
+  bottom:-300px;right:-300px;animation:float2 22s ease-in-out infinite;
+}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(100px,80px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-120px,-60px)}}
+
+.container{max-width:1200px;margin:0 auto;padding:24px 20px;position:relative;z-index:1;}
+
+/* Header */
+.brand{
+  display:flex;align-items:center;gap:14px;margin-bottom:8px;justify-content:center;
+}
+.brand-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+  box-shadow:0 0 30px rgba(0,229,255,.4),inset 0 0 20px rgba(255,255,255,.2);
+  animation:pulse 3s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 30px rgba(0,229,255,.4),inset 0 0 20px rgba(255,255,255,.2)}50%{box-shadow:0 0 50px rgba(168,85,247,.6),inset 0 0 20px rgba(255,255,255,.3)}}
+h1{
+  font-size:30px;font-weight:800;letter-spacing:-.5px;
+  background:linear-gradient(135deg,#fff,var(--accent));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.sub{text-align:center;color:var(--text-dim);font-size:13px;margin-bottom:28px;letter-spacing:.5px;}
+
+/* Cards */
+.card{
+  background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--border);border-radius:20px;padding:26px;
+  margin-bottom:20px;position:relative;overflow:hidden;
+  box-shadow:0 8px 32px rgba(0,0,0,.3);
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.5;
+}
+.card h2{
+  font-size:17px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px;
+  color:#fff;
+}
+.card h2::before{
+  content:'';width:4px;height:20px;border-radius:2px;
+  background:linear-gradient(180deg,var(--accent),var(--accent-2));
+}
+
+/* Login */
+#loginBox{max-width:440px;margin:60px auto;}
+.login-icon{font-size:44px;text-align:center;margin-bottom:15px;}
+label{display:block;font-size:12px;color:var(--text-dim);margin:14px 0 6px;font-weight:500;letter-spacing:.3px;text-transform:uppercase;}
+input,select,textarea{
+  width:100%;padding:13px 16px;background:rgba(0,0,0,.35);
+  border:1.5px solid rgba(255,255,255,.08);border-radius:12px;
+  color:#fff;font-size:14px;outline:none;transition:all .3s;font-family:inherit;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--accent);background:rgba(0,229,255,.05);
+  box-shadow:0 0 0 4px rgba(0,229,255,.1);
+}
+input::placeholder{color:#4a4d63;}
+
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+@media(max-width:640px){.row,.row3{grid-template-columns:1fr;}}
+
+button{
+  padding:13px 24px;border:none;border-radius:12px;cursor:pointer;
+  font-weight:600;font-size:14px;transition:all .3s;font-family:inherit;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#fff;box-shadow:0 4px 20px rgba(0,229,255,.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,255,.5);}
+.btn-primary:active{transform:translateY(0);}
+.btn-danger{background:rgba(239,68,68,.15);color:#ff6b6b;border:1px solid rgba(239,68,68,.3);}
+.btn-danger:hover{background:rgba(239,68,68,.25);}
+.btn-success{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);}
+.btn-success:hover{background:rgba(34,197,94,.25);}
+.btn-sm{padding:7px 14px;font-size:12px;border-radius:8px;}
+.btn-block{width:100%;margin-top:18px;}
+
+/* Tabs */
+.tabs{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
+.tab{
+  flex:1;min-width:130px;padding:14px 18px;
+  background:rgba(255,255,255,.03);border:1.5px solid var(--border);
+  border-radius:14px;cursor:pointer;text-align:center;font-weight:600;
+  font-size:13px;transition:all .3s;color:var(--text-dim);
+}
+.tab:hover{background:rgba(255,255,255,.06);color:#fff;}
+.tab.active{
+  background:linear-gradient(135deg,rgba(0,229,255,.15),rgba(168,85,247,.15));
+  color:#fff;border-color:var(--accent);
+  box-shadow:0 4px 20px rgba(0,229,255,.2);
+}
+
+/* Stats */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+@media(max-width:780px){.stat-grid{grid-template-columns:1fr 1fr;}}
+.stat{
+  background:var(--glass);backdrop-filter:blur(20px);
+  border:1px solid var(--border);padding:20px;border-radius:16px;
+  position:relative;overflow:hidden;transition:all .3s;
+}
+.stat:hover{transform:translateY(-3px);border-color:var(--accent);}
+.stat::after{
+  content:'';position:absolute;top:0;right:0;width:60px;height:60px;
+  background:radial-gradient(circle,rgba(0,229,255,.15),transparent 70%);border-radius:50%;
+}
+.stat .num{font-size:28px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.stat .lbl{font-size:11px;color:var(--text-dim);margin-top:6px;text-transform:uppercase;letter-spacing:.5px;font-weight:600;}
+.stat .ico{position:absolute;top:18px;right:18px;font-size:22px;opacity:.5;}
+
+/* Table */
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{
+  padding:14px;text-align:left;color:var(--accent);font-weight:600;
+  font-size:11px;text-transform:uppercase;letter-spacing:.5px;
+  background:rgba(0,229,255,.05);border-bottom:1px solid var(--border);
+}
+td{padding:14px;border-bottom:1px solid rgba(255,255,255,.05);}
+tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.02);}
+code{font-family:'JetBrains Mono',monospace;font-size:11px;background:rgba(0,229,255,.1);padding:3px 8px;border-radius:6px;color:var(--accent);}
+
+.badge{
+  display:inline-block;padding:4px 12px;border-radius:20px;font-size:10px;
+  font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+}
+.badge.active{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);}
+.badge.expired{background:rgba(239,68,68,.15);color:#ff6b6b;border:1px solid rgba(239,68,68,.3);}
+.badge.blocked{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.3);}
+
+.result-box{
+  background:rgba(0,0,0,.4);border-radius:12px;padding:18px;margin-top:18px;
+  font-family:'JetBrains Mono',monospace;font-size:12px;white-space:pre-wrap;
+  max-height:400px;overflow:auto;border:1px solid var(--border);
+  color:#b8bcc9;line-height:1.7;
+}
+
+.hidden{display:none!important;}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:24px;right:24px;padding:16px 24px;border-radius:14px;
+  color:#fff;font-weight:600;z-index:999;opacity:0;transform:translateY(30px);
+  transition:all .4s cubic-bezier(.4,0,.2,1);box-shadow:0 10px 40px rgba(0,0,0,.5);
+  display:flex;align-items:center;gap:10px;max-width:380px;
+}
+.toast.show{opacity:1;transform:translateY(0);}
+.toast.ok{background:linear-gradient(135deg,#059669,#10b981);}
+.toast.err{background:linear-gradient(135deg,#dc2626,#ef4444);}
+
+/* Divider */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:20px 0;}
+
+/* Copy button */
+.copy-btn{
+  background:transparent;border:1px solid var(--border);color:var(--text-dim);
+  padding:4px 8px;border-radius:6px;font-size:10px;cursor:pointer;margin-left:6px;
+}
+.copy-btn:hover{color:var(--accent);border-color:var(--accent);}
+
+/* Empty state */
+.empty{text-align:center;padding:40px;color:var(--text-dim);font-size:14px;}
+.empty .ico{font-size:40px;opacity:.3;margin-bottom:10px;}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="brand">
+    <div class="brand-icon">🚀</div>
+    <h1>Rocket Admin</h1>
+  </div>
+  <p class="sub">Unlimited API Access • Days & Minutes Quota Management</p>
+
+  <!-- LOGIN -->
+  <div id="loginBox" class="card hidden">
+    <div class="login-icon">🔐</div>
+    <h2 style="justify-content:center;">Admin Authentication</h2>
+    <label>Master Password</label>
+    <input type="password" id="adminPass" placeholder="Enter your admin password" autocomplete="off">
+    <button class="btn-primary btn-block" onclick="login()">🚀 Access Panel</button>
+  </div>
+
+  <!-- MAIN -->
+  <div id="mainPanel" class="hidden">
+    <div class="stat-grid">
+      <div class="stat"><div class="ico">👥</div><div class="num" id="statUsers">0</div><div class="lbl">Total Users</div></div>
+      <div class="stat"><div class="ico">✅</div><div class="num" id="statActive">0</div><div class="lbl">Active</div></div>
+      <div class="stat"><div class="ico">📊</div><div class="num" id="statReq">0</div><div class="lbl">Requests</div></div>
+      <div class="stat"><div class="ico">📅</div><div class="num" id="statToday">0</div><div class="lbl">Today</div></div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('create',this)">➕ Create User</div>
+      <div class="tab" onclick="switchTab('users',this)">👥 Users</div>
+      <div class="tab" onclick="switchTab('settings',this)">⚙️ Settings</div>
+      <div class="tab" onclick="switchTab('logs',this)">📜 Logs</div>
+    </div>
+
+    <!-- CREATE -->
+    <div id="tab-create" class="tab-content">
+      <div class="card">
+        <h2>Create New API User</h2>
+        <div class="row">
+          <div><label>Username</label><input id="cUser" placeholder="e.g. user01"></div>
+          <div><label>API Key <span style="color:#666;text-transform:none;font-weight:400">(blank = auto)</span></label><input id="cKey" placeholder="auto-generate"></div>
+        </div>
+        <div class="row3">
+          <div><label>Validity (Days)</label><input type="number" id="cDays" value="30" min="0"></div>
+          <div><label>Minutes Quota</label><input type="number" id="cMins" value="1000" min="0"></div>
+          <div><label>Max Requests <span style="color:#666;text-transform:none;font-weight:400">(0=∞)</span></label><input type="number" id="cMax" value="0" min="0"></div>
+        </div>
+        <button class="btn-primary btn-block" onclick="createUser()">🚀 Generate User</button>
+        <div id="createResult"></div>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div id="tab-users" class="tab-content hidden">
+      <div class="card">
+        <h2>All Users <button class="btn-primary btn-sm" style="margin-left:auto" onclick="loadUsers()">🔄 Refresh</button></h2>
+        <div class="table-wrap">
+          <table id="usersTable">
+            <thead><tr><th>Username</th><th>API Key</th><th>Days Left</th><th>Minutes</th><th>Requests</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="tab-settings" class="tab-content hidden">
+      <div class="card">
+        <h2>API Configuration</h2>
+        <label>API Base URL (your roct_main.php)</label>
+        <input id="setUrl" placeholder="https://yourdomain.com/roct_main.php">
+        <div class="divider"></div>
+        <h2>Security</h2>
+        <label>Change Admin Password</label>
+        <input type="password" id="setPass" placeholder="Leave blank to keep current">
+        <button class="btn-primary btn-block" onclick="saveSettings()">💾 Save Settings</button>
+        <div id="settingsResult"></div>
+      </div>
+    </div>
+
+    <!-- LOGS -->
+    <div id="tab-logs" class="tab-content hidden">
+      <div class="card">
+        <h2>Request Logs
+          <button class="btn-primary btn-sm" style="margin-left:auto" onclick="loadLogs()">🔄 Refresh</button>
+          <button class="btn-danger btn-sm" onclick="clearLogs()">🗑️ Clear</button>
+        </h2>
+        <div class="table-wrap">
+          <table id="logsTable">
+            <thead><tr><th>Time</th><th>User</th><th>Phone</th><th>Status</th><th>Response</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const API = 'api.php';
+let ADMIN_TOKEN = '';
+
+function toast(msg, ok=true){
+  const t = document.getElementById('toast');
+  t.innerHTML = (ok?'✅ ':'❌ ') + msg;
+  t.className = 'toast show ' + (ok?'ok':'err');
+  clearTimeout(t._t);
+  t._t = setTimeout(()=>t.className='toast', 3500);
+}
+
+async function post(action, data={}){
+  const res = await fetch(API + '?action=' + action, {
+    method:'POST',
+    headers:{'Content-Type':'application/json','X-Admin-Token':ADMIN_TOKEN},
+    body: JSON.stringify(data)
+  });
+  return await res.json();
+}
+async function get(action){
+  const res = await fetch(API + '?action=' + action, {
+    headers:{'X-Admin-Token':ADMIN_TOKEN}
+  });
+  return await res.json();
+}
+
+async function login(){
+  const pass = document.getElementById('adminPass').value;
+  if(!pass){ toast('Enter password', false); return; }
+  const r = await post('login', {password: pass});
+  if(r.success){
+    ADMIN_TOKEN = r.token;
+    localStorage.setItem('adminToken', ADMIN_TOKEN);
+    document.getElementById('loginBox').classList.add('hidden');
+    document.getElementById('mainPanel').classList.remove('hidden');
+    loadStats(); loadUsers(); loadSettings();
+    toast('Welcome, Admin!');
+  } else toast('Wrong password!', false);
+}
+
+function switchTab(id, el){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.add('hidden'));
+  document.getElementById('tab-'+id).classList.remove('hidden');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  if(id==='users') loadUsers();
+  if(id==='logs') loadLogs();
+}
+
+async function createUser(){
+  const data = {
+    username: document.getElementById('cUser').value.trim(),
+    apikey: document.getElementById('cKey').value.trim(),
+    days: parseInt(document.getElementById('cDays').value)||0,
+    minutes: parseInt(document.getElementById('cMins').value)||0,
+    maxRequests: parseInt(document.getElementById('cMax').value)||0
+  };
+  if(!data.username){ toast('Username required', false); return; }
+  const r = await post('create_user', data);
+  if(r.success){
+    document.getElementById('createResult').innerHTML =
+      `<div class="result-box">
+🚀 USER CREATED SUCCESSFULLY
+
+👤 Username    : ${r.user.username}
+🔑 API Key     : ${r.user.apikey}
+📅 Expires At  : ${r.user.expires_at}
+⏱️ Minutes     : ${r.user.minutes}
+📊 Max Requests: ${r.user.max_requests||'∞'}
+
+🔗 Endpoint:
+${location.origin.replace('/admin','')}/roct_main.php?apikey=${r.user.apikey}&phone=01XXXXXXXXX
+      </div>`;
+    toast('User created successfully!');
+    document.getElementById('cUser').value='';
+    document.getElementById('cKey').value='';
+    loadStats();
+  } else toast(r.error||'Failed', false);
+}
+
+async function loadUsers(){
+  const r = await get('users');
+  if(!r.success) return;
+  const tb = document.querySelector('#usersTable tbody');
+  if(!r.users.length){
+    tb.innerHTML = '<tr><td colspan="7"><div class="empty"><div class="ico">👥</div>No users yet. Create your first user!</div></td></tr>';
+    return;
+  }
+  tb.innerHTML = '';
+  r.users.forEach(u=>{
+    const expired = new Date(u.expires_at) < new Date();
+    const status = u.blocked ? 'blocked' : (expired?'expired':'active');
+    const daysLeft = Math.max(0,Math.ceil((new Date(u.expires_at)-new Date())/86400000));
+    tb.innerHTML += `<tr>
+      <td><strong>${u.username}</strong></td>
+      <td><code>${u.apikey.substring(0,20)}…</code><button class="copy-btn" onclick="copyKey('${u.apikey}')">Copy</button></td>
+      <td>${daysLeft}d</td>
+      <td>${u.minutes_used||0}/${u.minutes||'∞'}</td>
+      <td>${u.requests||0}${u.max_requests?'/'+u.max_requests:''}</td>
+      <td><span class="badge ${status}">${status}</span></td>
+      <td>
+        <button class="btn-success btn-sm" onclick="toggleBlock('${u.username}')">${u.blocked?'Unblock':'Block'}</button>
+        <button class="btn-danger btn-sm" onclick="delUser('${u.username}')">Del</button>
+      </td>
+    </tr>`;
+  });
+}
+
+function copyKey(k){
+  navigator.clipboard.writeText(k);
+  toast('API Key copied!');
+}
+
+async function delUser(u){
+  if(!confirm('Delete user "'+u+'" ?'))return;
+  await post('delete_user',{username:u});
+  loadUsers(); loadStats(); toast('User deleted');
+}
+async function toggleBlock(u){ await post('toggle_block',{username:u}); loadUsers(); }
+
+async function loadStats(){
+  const r = await get('stats');
+  if(r.success){
+    document.getElementById('statUsers').textContent=r.total;
+    document.getElementById('statActive').textContent=r.active;
+    document.getElementById('statReq').textContent=r.requests;
+    document.getElementById('statToday').textContent=r.today;
+  }
+}
+
+async function loadSettings(){
+  const r = await get('get_settings');
+  if(r.success && r.settings) document.getElementById('setUrl').value = r.settings.api_url||'';
+}
+async function saveSettings(){
+  const r = await post('settings',{
+    api_url: document.getElementById('setUrl').value,
+    password: document.getElementById('setPass').value
+  });
+  if(r.success){ toast('Settings saved!'); document.getElementById('setPass').value=''; }
+  else toast('Failed', false);
+}
+
+async function loadLogs(){
+  const r = await get('logs');
+  if(!r.success) return;
+  const tb = document.querySelector('#logsTable tbody');
+  if(!r.logs.length){
+    tb.innerHTML = '<tr><td colspan="5"><div class="empty"><div class="ico">📜</div>No logs yet.</div></td></tr>';
+    return;
+  }
+  tb.innerHTML = '';
+  r.logs.slice().reverse().forEach(l=>{
+    tb.innerHTML += `<tr>
+      <td style="font-size:11px;color:#8b8fa8">${new Date(l.time*1000).toLocaleString()}</td>
+      <td>${l.username||'-'}</td>
+      <td>${l.phone||'-'}</td>
+      <td><span class="badge ${l.success?'active':'expired'}">${l.success?'OK':'FAIL'}</span></td>
+      <td style="font-size:11px;max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${(l.message||'').substring(0,80)}</td>
+    </tr>`;
+  });
+}
+async function clearLogs(){ if(!confirm('Clear all logs?'))return; await post('clear_logs',{}); loadLogs(); toast('Logs cleared'); }
+
+// Auto-login
+window.onload = ()=>{
+  const t = localStorage.getItem('adminToken');
+  if(t){
+    ADMIN_TOKEN = t;
+    document.getElementById('loginBox').classList.add('hidden');
+    document.getElementById('mainPanel').classList.remove('hidden');
+    loadStats(); loadUsers(); loadSettings();
+  } else {
+    document.getElementById('loginBox').classList.remove('hidden');
+  }
+};
+</script>
+</body>
+</html>
